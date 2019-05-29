@@ -1,62 +1,635 @@
 {
   "stats": {
-    "suites": 0,
-    "tests": 1,
-    "passes": 0,
+    "suites": 16,
+    "tests": 15,
+    "passes": 10,
     "pending": 0,
-    "failures": 1,
-    "start": "2019-05-29T11:20:57.200Z",
-    "end": "2019-05-29T11:20:57.213Z",
-    "duration": 13,
-    "testsRegistered": 1,
-    "passPercent": 0,
+    "failures": 5,
+    "start": "2019-05-29T12:53:03.027Z",
+    "end": "2019-05-29T12:53:03.072Z",
+    "duration": 45,
+    "testsRegistered": 15,
+    "passPercent": 66.7,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
     "skipped": 0,
     "hasSkipped": false,
-    "passPercentClass": "danger",
+    "passPercentClass": "warning",
     "pendingPercentClass": "danger"
   },
   "suites": {
-    "uuid": "4100de17-641e-4b5a-87ba-a5f57037300a",
+    "uuid": "ad433b75-7f3a-4ba9-8ad4-14110e22a708",
     "title": "",
     "fullFile": "",
     "file": "",
     "beforeHooks": [],
     "afterHooks": [],
-    "tests": [
+    "tests": [],
+    "suites": [
       {
-        "title": "should return true",
-        "fullTitle": "should return true",
-        "timedOut": false,
-        "duration": 1,
-        "state": "failed",
-        "pass": false,
-        "fail": true,
-        "pending": false,
-        "code": "assert.equal(true, false)",
-        "err": {
-          "message": "AssertionError: true == false",
-          "estack": "AssertionError [ERR_ASSERTION]: true == false\n    at Context.<anonymous> (test.js:3:41)\n    at processImmediate (internal/timers.js:439:21)",
-          "diff": "- true\n+ false\n"
-        },
-        "isRoot": true,
-        "uuid": "471d998b-d174-4221-953a-8015dc6ee306",
-        "isHook": false,
-        "skipped": false
+        "uuid": "f3a7f514-7eaf-4b2c-a066-ad33de5fab6e",
+        "title": "Snake",
+        "fullFile": "/mnt/e/code-challenges/snake/test.js",
+        "file": "/test.js",
+        "beforeHooks": [],
+        "afterHooks": [],
+        "tests": [],
+        "suites": [
+          {
+            "uuid": "6509b643-de06-424d-9d21-bbf01e263f9e",
+            "title": "Game",
+            "fullFile": "/mnt/e/code-challenges/snake/test.js",
+            "file": "/test.js",
+            "beforeHooks": [],
+            "afterHooks": [],
+            "tests": [],
+            "suites": [
+              {
+                "uuid": "f360358c-8817-40d7-980b-c8f0e7b738ee",
+                "title": "selectors",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should provide access to current game state",
+                    "fullTitle": "Snake Game selectors should provide access to current game state",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "failed",
+                    "pass": false,
+                    "fail": true,
+                    "pending": false,
+                    "code": "const game = new Game();\nassert.exists(game.garden)\nassert.exists(game.score)",
+                    "err": {
+                      "message": "TypeError: Game is not a constructor",
+                      "estack": "TypeError: Game is not a constructor\n    at Context.<anonymous> (test.js:9:30)\n    at processImmediate (internal/timers.js:439:21)"
+                    },
+                    "isRoot": false,
+                    "uuid": "d9213eb2-4153-4a05-9ebd-c65923d5222a",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [],
+                "failures": [
+                  "d9213eb2-4153-4a05-9ebd-c65923d5222a"
+                ],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              },
+              {
+                "uuid": "52bf6f01-0355-4a5a-b341-4c00fbda68ff",
+                "title": "#constructor()",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should create a game with a garden and a score of zero",
+                    "fullTitle": "Snake Game #constructor() should create a game with a garden and a score of zero",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "failed",
+                    "pass": false,
+                    "fail": true,
+                    "pending": false,
+                    "code": "const game = new Game();\nassert.instanceof(game.garden, Garden);\nassert.strictEqual(game.score, 0);",
+                    "err": {
+                      "message": "TypeError: Game is not a constructor",
+                      "estack": "TypeError: Game is not a constructor\n    at Context.<anonymous> (test.js:18:30)\n    at processImmediate (internal/timers.js:439:21)"
+                    },
+                    "isRoot": false,
+                    "uuid": "b9996d41-4d1a-433a-b030-d0cf081f0d1a",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [],
+                "failures": [
+                  "b9996d41-4d1a-433a-b030-d0cf081f0d1a"
+                ],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              }
+            ],
+            "passes": [],
+            "failures": [],
+            "pending": [],
+            "skipped": [],
+            "duration": 0,
+            "root": false,
+            "rootEmpty": false,
+            "_timeout": 2000
+          },
+          {
+            "uuid": "b61c1f32-7956-4b5e-8804-b54e00df842b",
+            "title": "Garden",
+            "fullFile": "/mnt/e/code-challenges/snake/test.js",
+            "file": "/test.js",
+            "beforeHooks": [],
+            "afterHooks": [],
+            "tests": [],
+            "suites": [
+              {
+                "uuid": "77e3cfee-ca7c-4a42-b4f2-58774302845d",
+                "title": "selectors",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should provide access to current garden state",
+                    "fullTitle": "Snake Garden selectors should provide access to current garden state",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "failed",
+                    "pass": false,
+                    "fail": true,
+                    "pending": false,
+                    "code": "const garden = new Garden();\nassert.exists(garden.snake);\nassert.exists(garden.foods);\nassert.exists(garden.rocks);",
+                    "err": {
+                      "message": "TypeError: Garden is not a constructor",
+                      "estack": "TypeError: Garden is not a constructor\n    at Context.<anonymous> (test.js:34:32)\n    at processImmediate (internal/timers.js:439:21)"
+                    },
+                    "isRoot": false,
+                    "uuid": "621fae82-7600-4afb-a618-d681012339be",
+                    "isHook": false,
+                    "skipped": false
+                  },
+                  {
+                    "title": "should return snake as a Snake and rocks and foods as arrays",
+                    "fullTitle": "Snake Garden selectors should return snake as a Snake and rocks and foods as arrays",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "failed",
+                    "pass": false,
+                    "fail": true,
+                    "pending": false,
+                    "code": "const garden = new Garden();\nassert.instanceof(garden.snake, Snake)\nassert.isArray(garden.foods);\nassert.isArray(garden.rocks);",
+                    "err": {
+                      "message": "TypeError: Garden is not a constructor",
+                      "estack": "TypeError: Garden is not a constructor\n    at Context.<anonymous> (test.js:42:32)\n    at processImmediate (internal/timers.js:439:21)"
+                    },
+                    "isRoot": false,
+                    "uuid": "e965e553-fec3-455c-8901-d718e627e1fe",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [],
+                "failures": [
+                  "621fae82-7600-4afb-a618-d681012339be",
+                  "e965e553-fec3-455c-8901-d718e627e1fe"
+                ],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              },
+              {
+                "uuid": "5de4aadf-8874-41be-8364-67109dce7a66",
+                "title": "#constructor()",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should create an empty garden with a snake and no food or rocks",
+                    "fullTitle": "Snake Garden #constructor() should create an empty garden with a snake and no food or rocks",
+                    "timedOut": false,
+                    "duration": 1,
+                    "state": "failed",
+                    "pass": false,
+                    "fail": true,
+                    "pending": false,
+                    "code": "const garden = new Garden();\nassert.instanceof(garden.snake, Snake);\nassert.strictEqual(len(garden.foods), 0);\nassert.strictEqual(len(garden.rocks), 0);",
+                    "err": {
+                      "message": "TypeError: Garden is not a constructor",
+                      "estack": "TypeError: Garden is not a constructor\n    at Context.<anonymous> (test.js:52:32)\n    at processImmediate (internal/timers.js:439:21)"
+                    },
+                    "isRoot": false,
+                    "uuid": "5bc1680d-3fa3-4f42-8fe6-384e6ca99bbb",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [],
+                "failures": [
+                  "5bc1680d-3fa3-4f42-8fe6-384e6ca99bbb"
+                ],
+                "pending": [],
+                "skipped": [],
+                "duration": 1,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              },
+              {
+                "uuid": "cca7ff8e-cd1b-4ee2-a8bf-50ff856d01e3",
+                "title": "#spawnfood()",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should place food away from snake",
+                    "fullTitle": "Snake Garden #spawnfood() should place food away from snake",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "aca2e7b4-45e9-4cd6-8ecb-2e8b00b94f0c",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [
+                  "aca2e7b4-45e9-4cd6-8ecb-2e8b00b94f0c"
+                ],
+                "failures": [],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              },
+              {
+                "uuid": "d7189913-a4bf-48ec-86bf-c7e37b89e063",
+                "title": "#spawnrock()",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should place rocks away from snake",
+                    "fullTitle": "Snake Garden #spawnrock() should place rocks away from snake",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "d07c45bb-5bc6-4af2-860b-5fba9285826e",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [
+                  "d07c45bb-5bc6-4af2-860b-5fba9285826e"
+                ],
+                "failures": [],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              }
+            ],
+            "passes": [],
+            "failures": [],
+            "pending": [],
+            "skipped": [],
+            "duration": 0,
+            "root": false,
+            "rootEmpty": false,
+            "_timeout": 2000
+          },
+          {
+            "uuid": "3dee0e8f-2078-4e57-9c5e-e586588d1892",
+            "title": "Snake",
+            "fullFile": "/mnt/e/code-challenges/snake/test.js",
+            "file": "/test.js",
+            "beforeHooks": [],
+            "afterHooks": [],
+            "tests": [],
+            "suites": [
+              {
+                "uuid": "a4cdb3a2-3d19-4594-8ec7-6ff8a25f19cb",
+                "title": "selectors",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should provide access to current snake state",
+                    "fullTitle": "Snake Snake selectors should provide access to current snake state",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "3d531fce-334d-4ed4-81dd-7bdddde1ce20",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [
+                  "3d531fce-334d-4ed4-81dd-7bdddde1ce20"
+                ],
+                "failures": [],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              },
+              {
+                "uuid": "75e67be8-1cb2-4a4e-a47c-5d87ffab20a7",
+                "title": "#move()",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [],
+                "suites": [
+                  {
+                    "uuid": "80aa228d-4c79-47eb-a82e-3526f457716e",
+                    "title": "with no argument",
+                    "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                    "file": "/test.js",
+                    "beforeHooks": [],
+                    "afterHooks": [],
+                    "tests": [
+                      {
+                        "title": "should move the snake forward in direction it's facing",
+                        "fullTitle": "Snake Snake #move() with no argument should move the snake forward in direction it's facing",
+                        "timedOut": false,
+                        "duration": 0,
+                        "state": "passed",
+                        "speed": "fast",
+                        "pass": true,
+                        "fail": false,
+                        "pending": false,
+                        "code": "",
+                        "err": {},
+                        "isRoot": false,
+                        "uuid": "a61ccf50-f56c-47cd-8967-cdf1e7a522b9",
+                        "isHook": false,
+                        "skipped": false
+                      }
+                    ],
+                    "suites": [],
+                    "passes": [
+                      "a61ccf50-f56c-47cd-8967-cdf1e7a522b9"
+                    ],
+                    "failures": [],
+                    "pending": [],
+                    "skipped": [],
+                    "duration": 0,
+                    "root": false,
+                    "rootEmpty": false,
+                    "_timeout": 2000
+                  },
+                  {
+                    "uuid": "14782b12-b5ce-465c-84f6-8bc9d261377d",
+                    "title": "with a direction",
+                    "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                    "file": "/test.js",
+                    "beforeHooks": [],
+                    "afterHooks": [],
+                    "tests": [
+                      {
+                        "title": "should move the snake in the given direction",
+                        "fullTitle": "Snake Snake #move() with a direction should move the snake in the given direction",
+                        "timedOut": false,
+                        "duration": 0,
+                        "state": "passed",
+                        "speed": "fast",
+                        "pass": true,
+                        "fail": false,
+                        "pending": false,
+                        "code": "",
+                        "err": {},
+                        "isRoot": false,
+                        "uuid": "8cc3084f-b234-4465-9efc-4e3fc1e3e0aa",
+                        "isHook": false,
+                        "skipped": false
+                      }
+                    ],
+                    "suites": [],
+                    "passes": [
+                      "8cc3084f-b234-4465-9efc-4e3fc1e3e0aa"
+                    ],
+                    "failures": [],
+                    "pending": [],
+                    "skipped": [],
+                    "duration": 0,
+                    "root": false,
+                    "rootEmpty": false,
+                    "_timeout": 2000
+                  }
+                ],
+                "passes": [],
+                "failures": [],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              },
+              {
+                "uuid": "049e19d9-e50a-4220-869f-fae2d9cb6276",
+                "title": "#grow()",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should increase the snake's length",
+                    "fullTitle": "Snake Snake #grow() should increase the snake's length",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "fe44b730-0129-4b0b-9df7-609136197256",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [
+                  "fe44b730-0129-4b0b-9df7-609136197256"
+                ],
+                "failures": [],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              },
+              {
+                "uuid": "ac139ef1-38ef-4a22-90c8-e26e03eb2aa9",
+                "title": "#safe?",
+                "fullFile": "/mnt/e/code-challenges/snake/test.js",
+                "file": "/test.js",
+                "beforeHooks": [],
+                "afterHooks": [],
+                "tests": [
+                  {
+                    "title": "should return true if snake moves in a clear space",
+                    "fullTitle": "Snake Snake #safe? should return true if snake moves in a clear space",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "6e8f7221-c651-44a7-bb2c-1eb41ac74350",
+                    "isHook": false,
+                    "skipped": false
+                  },
+                  {
+                    "title": "should return false if snake hits a wall",
+                    "fullTitle": "Snake Snake #safe? should return false if snake hits a wall",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "ec47c467-e520-4017-b9a3-0ebc8d5cd610",
+                    "isHook": false,
+                    "skipped": false
+                  },
+                  {
+                    "title": "should return false if snake bites itself",
+                    "fullTitle": "Snake Snake #safe? should return false if snake bites itself",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "074b15b8-df89-4f72-96fe-63ff83050afa",
+                    "isHook": false,
+                    "skipped": false
+                  },
+                  {
+                    "title": "should return false if snake hits a rock",
+                    "fullTitle": "Snake Snake #safe? should return false if snake hits a rock",
+                    "timedOut": false,
+                    "duration": 0,
+                    "state": "passed",
+                    "speed": "fast",
+                    "pass": true,
+                    "fail": false,
+                    "pending": false,
+                    "code": "",
+                    "err": {},
+                    "isRoot": false,
+                    "uuid": "62dc50b7-aedb-434e-a7e0-21a0934c1df6",
+                    "isHook": false,
+                    "skipped": false
+                  }
+                ],
+                "suites": [],
+                "passes": [
+                  "6e8f7221-c651-44a7-bb2c-1eb41ac74350",
+                  "ec47c467-e520-4017-b9a3-0ebc8d5cd610",
+                  "074b15b8-df89-4f72-96fe-63ff83050afa",
+                  "62dc50b7-aedb-434e-a7e0-21a0934c1df6"
+                ],
+                "failures": [],
+                "pending": [],
+                "skipped": [],
+                "duration": 0,
+                "root": false,
+                "rootEmpty": false,
+                "_timeout": 2000
+              }
+            ],
+            "passes": [],
+            "failures": [],
+            "pending": [],
+            "skipped": [],
+            "duration": 0,
+            "root": false,
+            "rootEmpty": false,
+            "_timeout": 2000
+          }
+        ],
+        "passes": [],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 0,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 2000
       }
     ],
-    "suites": [],
     "passes": [],
-    "failures": [
-      "471d998b-d174-4221-953a-8015dc6ee306"
-    ],
+    "failures": [],
     "pending": [],
     "skipped": [],
-    "duration": 1,
+    "duration": 0,
     "root": true,
-    "rootEmpty": false,
+    "rootEmpty": true,
     "_timeout": 2000
   },
   "copyrightYear": 2019
