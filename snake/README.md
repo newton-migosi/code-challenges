@@ -31,3 +31,4 @@
         - main.css: styling
         - snake.js: components and actions
         - render.js: UI
+        - tests.js: specs
