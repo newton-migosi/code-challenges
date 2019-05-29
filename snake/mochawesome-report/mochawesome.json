@@ -1,0 +1,63 @@
+{
+  "stats": {
+    "suites": 0,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2019-05-29T11:20:57.200Z",
+    "end": "2019-05-29T11:20:57.213Z",
+    "duration": 13,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "passPercentClass": "danger",
+    "pendingPercentClass": "danger"
+  },
+  "suites": {
+    "uuid": "4100de17-641e-4b5a-87ba-a5f57037300a",
+    "title": "",
+    "fullFile": "",
+    "file": "",
+    "beforeHooks": [],
+    "afterHooks": [],
+    "tests": [
+      {
+        "title": "should return true",
+        "fullTitle": "should return true",
+        "timedOut": false,
+        "duration": 1,
+        "state": "failed",
+        "pass": false,
+        "fail": true,
+        "pending": false,
+        "code": "assert.equal(true, false)",
+        "err": {
+          "message": "AssertionError: true == false",
+          "estack": "AssertionError [ERR_ASSERTION]: true == false\n    at Context.<anonymous> (test.js:3:41)\n    at processImmediate (internal/timers.js:439:21)",
+          "diff": "- true\n+ false\n"
+        },
+        "isRoot": true,
+        "uuid": "471d998b-d174-4221-953a-8015dc6ee306",
+        "isHook": false,
+        "skipped": false
+      }
+    ],
+    "suites": [],
+    "passes": [],
+    "failures": [
+      "471d998b-d174-4221-953a-8015dc6ee306"
+    ],
+    "pending": [],
+    "skipped": [],
+    "duration": 1,
+    "root": true,
+    "rootEmpty": false,
+    "_timeout": 2000
+  },
+  "copyrightYear": 2019
+}
