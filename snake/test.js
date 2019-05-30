@@ -1,18 +1,8 @@
 const assert = require('chai').assert;
-const { Game, Garden, Snake, Food, Obstacles } = require('./snake');
+const { Game, Garden, Snake } = require('./snake');
 
 describe('Snake', function () {
     describe('Game', function () {
-
-        describe('selectors', function () {
-            it('should provide access to current game state', function () {
-                const game = new Game();
-
-                assert.exists(game.garden)
-                assert.exists(game.score)
-            });
-        });
-
         describe('#constructor()', function () {
             it('should create a game with a garden and a score of zero', function () {
                 const game = new Game();
@@ -28,24 +18,6 @@ describe('Snake', function () {
     });
 
     describe('Garden', function () {
-
-        describe('selectors', function () {
-            it('should provide access to current garden state', function () {
-                const garden = new Garden();
-
-                assert.exists(garden.snake);
-                assert.exists(garden.foods);
-                assert.exists(garden.rocks);
-            });
-
-            it('should return snake as a Snake and rocks and foods as arrays', function() {
-                const garden = new Garden();
-
-                assert.instanceof(garden.snake, Snake)
-                assert.isArray(garden.foods);
-                assert.isArray(garden.rocks);
-            });
-        });
 
         describe('#constructor()', function () {
             it('should create an empty garden with a snake and no food or rocks', function () {
@@ -75,11 +47,6 @@ describe('Snake', function () {
     });
 
     describe('Snake', function () {
-        describe('selectors', function () {
-            it('should provide access to current snake state', function () {
-
-            });
-        });
 
         describe('#move()', function () {
             context('with no argument', function () {
@@ -101,6 +68,16 @@ describe('Snake', function () {
             });
         });
 
+        describe('#onsnake?', function() {
+            it('should return true if passed a location on the snake', function() {
+
+            });
+
+            it('should return false if passed location not on the snake', function() {
+
+            });
+        });
+
         describe('#safe?', function () {
             it('should return true if snake moves in a clear space', function () {
 
@@ -118,13 +95,5 @@ describe('Snake', function () {
 
             });
         })
-    });
-
-    describe('Food', function () {
-
-    });
-
-    describe('Obstacles', function () {
-
     });
 });
