@@ -3,31 +3,12 @@ const { Game, Garden, Snake } = require('./snake');
 
 describe('Snake', function () {
     describe('Game', function () {
-        describe('#constructor()', function () {
-            it('should create a game with a garden and a score of zero', function () {
-                const game = new Game();
-
-                assert.instanceof(game.garden, Garden);
-                assert.strictEqual(game.score, 0);
-            });
-        });
-
         describe('#play()', function() {
 
         })
     });
 
     describe('Garden', function () {
-
-        describe('#constructor()', function () {
-            it('should create an empty garden with a snake and no food or rocks', function () {
-                const garden = new Garden();
-
-                assert.instanceof(garden.snake, Snake);
-                assert.strictEqual(len(garden.foods), 0);
-                assert.strictEqual(len(garden.rocks), 0);
-            });
-        });
 
         describe('#spawnfood()', function () {
             it('should place food away from snake', function () {
