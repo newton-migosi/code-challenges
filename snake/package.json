@@ -1,0 +1,36 @@
+{
+  "name": "snake",
+  "version": "1.0.0",
+  "description": "Simple snake game",
+  "main": "snake.js",
+  "scripts": {
+    "test": "mocha --reporter mochawesome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonisheen/code-challenges.git"
+  },
+  "keywords": [
+    "snake",
+    "code-challenge"
+  ],
+  "author": "toni_sheen, nevomangi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tonisheen/code-challenges/issues"
+  },
+  "homepage": "https://github.com/tonisheen/code-challenges#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "mochawesome": "^3.1.2"
+  },
+  "mocha": {
+    "reporterOptions": {
+      "reportDir": "e2e/reports",
+      "inlineAssets": "true",
+      "reportPageTitle": "E2E Test Reports",
+      "reportTitle": "E2E Test Reports"
+    }
+  }
+}
