@@ -1,146 +1,394 @@
 class Game {
-    constructor(garden_dimensions=[20,20]) {
-        this._score = 0;
-        this._garden = new Garden(...garden_dimensions);
+    /**
+     * creates a new game
+     * 
+     * @param {Garden} garden the game's environment
+     * @param {Snake} snake the player's persona
+     * @param {Number} score the player's score
+     */
+    constructor(garden = new Garden(), snake = new Snake(), score = 0) {
+        this._score = score;
+        this._garden = garden;
+        this._snake = snake;
     }
 
-    start() {
+    static with_dimensions(height, width) {
+        const mid = n => Math.floor(n / 2)
 
+        const head = new Point(mid(height), mid(width))
+
+        const tail = head.move(Direction.RIGHT.steps(3))
+
+        return new Game(new Garden(width, height).spawn_food.spawn_food.spawn_rock, new Snake([head, tail]))
+    }
+    
+    /**
+     * returns the current score
+     */
+    get score() {
+        return this._score;
     }
 
-    play(instruction) {
+    /**
+     * returns the game's garden
+     */
+    get garden() {
+        return this._garden;
+    }
 
+    /**
+     * returns the game's snake
+     */
+    get snake() {
+        return this._snake;
+    }
+
+    /**
+     * checks whether the game should proceed
+     */
+    get is_on() {
+        return this.snake.is_alive;
+    }
+
+    /**
+     * checks whether the location is safe
+     * 
+     * @param {Location} location the location to be checked
+     */
+    is_safe(location) {
+        return !(this.snake.on_snake(location) || this.garden.has_obstacle(location) || this.garden.on_edge(location));
+    }
+
+    /**
+     * advances the game by playing in the direction and adding rocks and food
+     * 
+     * @param {Direction} direction the direction to play
+     */
+    play(direction) {
+        const next = this.snake.head.neighbor(direction);
+
+        if (!this.is_safe(next)) {
+            return new Game(
+                this.garden,
+                this.snake.die,
+                this.score
+            );
+        }
+
+        if (this.garden.has_food(next)) {
+            return new Game(
+                this.garden.remove_food(next),
+                this.snake.move_and_grow(direction),
+                this.score + 1
+            );
+        }
+
+        return new Game(
+            this.snake.move(direction),
+            this.garden.spawn_food.spawn_rock,
+            this.score
+        );
     }
 }
 
+
 class Garden {
-    constructor(width, height, snake_length=3) {
+    /**
+     * creates a new garden
+     * 
+     * @param {Number} width the width of the garden
+     * @param {Number} height the height of the garden
+     * @param {...Point} foods points with food on them
+     * @param {...Point} rocks points with rocks on them
+     */
+    constructor(width, height, foods = [], rocks = []) {
         this._width = width;
         this._height = height;
 
-        this._foods = [];
-        this._rocks = [];
-
-        this._snake = new Snake(centre, snake_length, Direction.RIGHT, this);
+        this._foods = foods;
+        this._rocks = rocks;
     }
 
+    /**
+     * return all the locations with food on them
+     */
+    get foods() {
+        return this._foods;
+    }
+
+    /**
+     * returns all the locations with rocks on them
+     */
+    get rocks() {
+        return this._rocks;
+    }
+
+    /**
+     * returns the height of the garden
+     */
+    get height() {
+        return this._height;
+    }
+
+    /**
+     * returns the width of the garden
+     */
+    get width() {
+        return this._width;
+    }
+
+
+    /**
+     * returns an empty random location on the garden
+     */
+    get empty_random_location() {
+        const random_in_range  = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+        const get_random_location = () => new Point(random_in_range(0, this.width), random_in_range(0,this.height));
+
+        let random_location;
+        const tries = 100;
+
+        while (true) {
+            random_location = get_random_location(); 
+
+            if (this.is_empty(random_location)) {
+                return random_location;
+            }
+
+            if (tries === 0) {
+                throw new Error("No empty location found")
+            }
+
+            tries--;
+        }
+    }
+
+    /**
+     * checks whether a location is on the edge
+     * 
+     * @param {Location} location the location to be checked
+     */
+    on_edge(location) {
+        return location.x === 0 || location.x === this.width - 1 || location.y === 0 || location.y === this.height - 1;
+    }
+
+    /**
+     * checks whether a location is empty
+     * 
+     * @param {Location} location the location to be checked
+     */
     is_empty(location) {
-
+        return !this.has_food(location) && !this.has_obstacle(location);
     }
 
-    spawn_food() {
-
+    /**
+     * checks whether a location has an obsacle
+     * 
+     * @param {Location} location the location to be checked
+     */
+    has_obstacle(location) {
+        return this.rocks.some(rock_location => Points.are_equal(rock_location, location));
     }
 
-    spawn_rocks() {
 
+    /**
+     * checks whether a location has food
+     * 
+     * @param {Location} location the location to be checked
+     */
+    has_food(location) {
+        return this.foods.some(food_location => Points.are_equal(food_location, location));
     }
 
-    clear_food() {
-
+    /**
+     * adds food to the garden
+     */
+    get spawn_food() {
+        return new Garden(this.width, this.height, Arr.extend(this.foods, this.empty_random_location), this.rocks);
     }
 
-    clear_rocks() {
-        
+
+    /**
+     * adds a rock to the garden
+     */
+    get spawn_rock() {
+        return new Garden(this.width, this.height, this.foods, Arr.extend(this.rocks, this.empty_random_location));
+    }
+
+    /**
+     * removes food from the location
+     * 
+     * @param {Location} location the location to be cleared
+     */
+    remove_food(location) {
+        return new Garden(this.width, this.height, this.foods.filter(food_location => !Points.are_equal(food_location, location)), this.rocks);
+    }
+
+    /**
+     * removes a rock from the location
+     * 
+     * @param {Location} location the location to be cleared
+     */
+    remove_rock(location) {
+        return new Garden(this.width, this.height, this.foods, this.rocks.filter(rock_location => !Point.are_equal(rock_location, location)));
     }
 }
+
 
 class Snake {
-    constructor(location, length, orientation, environment) {
-        this._head = location;
-        this._orientation = orientation;
-        this._body = [new Line(length, orientation.opposite)];
-        this._environment = environment;
-        this._alive = True;
+    /**
+     * creates a new snake
+     * 
+     * @param {...Point} body list of points where the snake bends
+     */
+    constructor(vertices = []) {
+        this._vertices = vertices;
     }
 
-    get orientation() {
-        return this._orientation;
-    }
-
+    /**
+     * moves snake in the direction
+     * 
+     * @param {Direction} direction the direction the head of the snake should move
+     */
     move(direction) {
-
+        return this.add_at_head(direction).remove_one_from_tail;
     }
 
-    move_is_safe(direction) {
-
+    /**
+     * moves the snake and increments it's length by one
+     * 
+     * @param {Direction} direction the direction the head of the snake should move
+     */
+    move_and_grow(direction) {
+        return this.add_at_head(direction);
     }
 
-    grow() {
-
-    }
-}
-
-class Line {
-    constructor(start, length, direction) {
-        this._start = start;
-        this._length = length;
-        this._direction = direction;
+    /**
+     * kills the snake
+     */
+    get die() {
+        return Snake.dead_snake;
     }
 
-    contains(location) {
-
+    get is_alive() {
+        return this._vertices.length > 0;
     }
 
-    get points() {
-
+    static get dead_snake() {
+        return new Snake();
     }
 
-    trim_first() {
-
+    /**
+     * checks whether a point is on the snake
+     * 
+     * @param {Point} point the point to be tested
+     */
+    on_snake(point) {
+        return this.segments.some(segment => segment.contains(point));
     }
 
-    trim_last() {
-
+    /**
+     * returns the total length of the snake
+     */
+    get length() {
+        return this.segments.reduce((acc, segment) => acc + segment.length, 0);
     }
 
-    attach_first() {
-
+    /**
+     * returns the points at which the snake bends
+     */
+    get bends() {
+        return this._vertices;
     }
 
-    attach_last() {
-
-    }
-}
-
-class Location {
-    constructor(horizontal, vertical) {
-        this._x = horizontal;
-        this._y = vertical;
-    }
-}
-
-class Direction {
-    constructor(direction) {
-        this._direction = direction;
-    }
-
-    static get UP() {
-        return Direction('UP')
-    }
-
-    static get DOWN() {
-        return Direction('DOWN')
-    }
-
-    static get RIGHT() {
-        return Direction('RIGHT')
-    }
-
-    static get LEFT() {
-        return Direction('LEFT')
-    }
-
-    static get options() {
-        return [Direction.UP, Direction.DOWN, Direction.RIGHT, Direction.LEFT];
-    }
-
-    get opposite() {
-        switch (this._direction) {
-            case 'UP' : Direction.DOWN;
-            case 'DOWN': Direction.UP;
-            case 'LEFT': Direction.RIGHT;
-            case 'RIGHT' : Direction.LEFT;
+    /**
+     * returns the line segments on the snake
+     */
+    get segments() {
+        if (this.bends.length < 2) {
+            return this.bends.map(cell => Line.unit_line(cell));
         }
+
+        return Arr.adjacent_pairs(this.bends)
+            .map(pair => Line.between(...pair));
+    }
+
+    /**
+     * grows the snake by adding a point at the head
+     * 
+     * @param {Direction} direction the direction to grow the snake in
+     */
+    add_at_head(direction) {
+        const new_head = this.head.neighbor(direction);
+
+        if (Points.are_collinear(this.head, this.second_bend, new_head)) {
+            return new Snake([new_head, ...this._vertices.slice(1)]);
+        } else {
+            return new Snake([new_head, ...this._vertices]);
+        }
+    }
+
+    /**
+     * removes a point from the tail
+     */
+    get remove_one_from_tail() {
+        const new_tail = this.tail.neighbor(this.last_segment.orientation.opposite)
+
+        if (this.last_segment.length > 2) {
+            return new Snake([...this.bends.slice(0, -1), new_tail]);
+        } else {
+            return new Snake([...this.bends.slice(0, -1)]);
+        }
+    }
+
+    /**
+     * returns the head of the snake
+     */
+    get head() {
+        return this._vertices[0];
+    }
+
+    /**
+     * returns the second bend after the head
+     */
+    get second_bend() {
+        if (this.bends.length > 1) {
+            return this.bends[1];
+        } else {
+            return this.bends[0];
+        }
+    }
+
+    /**
+     * returns the first segment on the snake
+     */
+    get first_segment() {
+        if (this.bends.length > 1) {
+            return this.segments[0];
+        }
+
+        return Line.null_line;
+    }
+
+    /**
+     * returns the orientation of the snake's head 
+     */
+    get orientation() {
+        return this.first_segment.orientation;
+    }
+
+    /**
+     * returns the last line segment of the snake 
+     */
+    get last_segment() {
+        return Arr.get_last(this.segments);
+    }
+
+    /**
+     * returns the last point on the snake
+     */
+    get tail() {
+        return Arr.get_last(this.bends);
     }
 }
