@@ -12,16 +12,17 @@ class Game {
         this._snake = snake;
     }
 
-    static with_dimensions(height, width) {
+    static with_dimensions(width, height) {
         const mid = n => Math.floor(n / 2)
 
         const head = new Point(mid(height), mid(width))
 
         const tail = head.move(Direction.RIGHT.steps(3))
 
-        return new Game(new Garden(width, height).spawn_food.spawn_food.spawn_rock, new Snake([head, tail]))
+        return new Game(Garden.with_objects(width, height, 4, 5), new Snake([head, tail]))
+        // return new Game(new Garden(width, height).spawn_food.spawn_food.spawn_rock.spawn_food.spawn_food.spawn_rock, new Snake([head, tail]))
     }
-    
+
     /**
      * returns the current score
      */
@@ -77,20 +78,51 @@ class Game {
 
         if (this.garden.has_food(next)) {
             return new Game(
-                this.garden.remove_food(next),
+                this.garden.remove_food(next).spawn_food,
                 this.snake.move_and_grow(direction),
                 this.score + 1
             );
         }
 
         return new Game(
+            this.garden,
             this.snake.move(direction),
-            this.garden.spawn_food.spawn_rock,
+            this.score
+        );
+    }
+
+    get add_food() {
+        return new Game(
+            this.garden.spawn_food,
+            this.snake,
+            this.score
+        );
+    }
+
+    get add_rock() {
+        return new Game(
+            this.garden.spawn_rock,
+            this.snake,
+            this.score
+        );
+    }
+
+    get remove_food() {
+        return new Game(
+            this.garden.remove_oldest_food,
+            this.snake,
+            this.score
+        );
+    }
+
+    get remove_rock() {
+        return new Game(
+            this.garden.remove_oldest_rock,
+            this.snake,
             this.score
         );
     }
 }
-
 
 class Garden {
     /**
@@ -107,6 +139,14 @@ class Garden {
 
         this._foods = foods;
         this._rocks = rocks;
+    }
+
+    static with_objects(width, height, rocks = 0, food = 0) {
+        const range = (start = 0, stop = 0, step = 1) => Array.from(new Array((stop - start) / step)).map((_, i) => start + i * step);
+        const repeat = (fn, n, first) => range(0, n).reduce(acc => fn(acc), first);
+        return [{ fn: g => g.spawn_food, n: food },
+        { fn: g => g.spawn_rock, n: rocks }
+        ].reduce((g, { fn, n }) => repeat(fn, n, g), new Garden(width, height))
     }
 
     /**
@@ -142,15 +182,15 @@ class Garden {
      * returns an empty random location on the garden
      */
     get empty_random_location() {
-        const random_in_range  = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+        const random_in_range = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-        const get_random_location = () => new Point(random_in_range(0, this.width), random_in_range(0,this.height));
+        const get_random_location = () => new Point(random_in_range(0, this.width), random_in_range(0, this.height));
 
         let random_location;
-        const tries = 100;
+        let tries = 100;
 
         while (true) {
-            random_location = get_random_location(); 
+            random_location = get_random_location();
 
             if (this.is_empty(random_location)) {
                 return random_location;
@@ -170,7 +210,7 @@ class Garden {
      * @param {Location} location the location to be checked
      */
     on_edge(location) {
-        return location.x === 0 || location.x === this.width - 1 || location.y === 0 || location.y === this.height - 1;
+        return location.x < 0 || location.x > this.width || location.y < 0 || location.y > this.height;
     }
 
     /**
@@ -232,6 +272,23 @@ class Garden {
      */
     remove_rock(location) {
         return new Garden(this.width, this.height, this.foods, this.rocks.filter(rock_location => !Point.are_equal(rock_location, location)));
+    }
+
+    get remove_oldest_rock() {
+        return new Garden(this.width, this.height, this.foods, this.rocks.slice(1));
+    }
+
+    get remove_oldest_food() {
+        return new Garden(this.width, this.height, this.foods.slice(1), this.rocks);
+    }
+
+    get remove_random() {
+        const random_in_range = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+        return new Garden(this.width,
+            this.height,
+            this.foods.slice(random_in_range(0, this.foods.length)),
+            this.rocks.slice(random_in_range(0, this.rocks.length)))
     }
 }
 
@@ -335,7 +392,7 @@ class Snake {
     get remove_one_from_tail() {
         const new_tail = this.tail.neighbor(this.last_segment.orientation.opposite)
 
-        if (this.last_segment.length > 2) {
+        if (this.last_segment.length > 1) {
             return new Snake([...this.bends.slice(0, -1), new_tail]);
         } else {
             return new Snake([...this.bends.slice(0, -1)]);
@@ -375,7 +432,7 @@ class Snake {
      * returns the orientation of the snake's head 
      */
     get orientation() {
-        return this.first_segment.orientation;
+        return this.first_segment.orientation.opposite;
     }
 
     /**
