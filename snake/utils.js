@@ -46,7 +46,7 @@ const Point = CoordinateVector;
 const Delta = DisplacementVector;
 
 class Points {
-    static collinear(...[first, ...points]) {
+    static are_collinear(...[first, ...points]) {
         return points.every(point => point.x === first.x) || points.every(point => point.y === first.y)
     }
 
@@ -65,7 +65,7 @@ class Points {
 
 class Line {
     constructor(start, stop) {
-        if (!Points.collinear(start, stop)) {
+        if (!Points.are_collinear(start, stop)) {
             throw new Error("Cannot create line between non-collinear points")
         }
 
@@ -92,9 +92,9 @@ class Line {
     get orientation() {
         if (this.is_horizontal) {
             if(this.magnitude > 0) {
-                return Direction.LEFT
-            } else {
                 return Direction.RIGHT
+            } else {
+                return Direction.LEFT
             }
         } else {
             if(this.magnitude > 0) {
@@ -126,7 +126,7 @@ class Line {
     }
 
     contains(point) {
-        return Points.collinear(this.start, point) && Direction.equals(Line.between(this.start, point).orientation, this.orientation) && Line.between(this.start, point).length <= this.length 
+        return Points.are_collinear(this.start, point) && Direction.equals(Line.between(this.start, point).orientation, this.orientation) && Line.between(this.start, point).length <= this.length 
     }
 
     static get null_line() {
@@ -175,7 +175,7 @@ class Arr {
         const exclude_first = arr => arr.slice(1)
         const exclude_last = arr => arr.slice(0, -1)
 
-        return Arr.zip(exclude_first(arr), exclude_last(arr));
+        return Arr.zip(exclude_last(arr), exclude_first(arr));
     }
 
     static zip(...arrs) {
@@ -185,7 +185,7 @@ class Arr {
 
         const range = n => Array.from(new Array(n))
 
-        return range(arrs[0].length).reduce((acc, _, i) => [arrs.map(arr=>arr[i]), ...acc], [])
+        return range(arrs[0].length).reduce((acc, _, i) => [...acc, arrs.map(arr=>arr[i])], [])
     }
 
     static get_last(arr) {
