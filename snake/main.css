@@ -1,1 +1,5 @@
-canvas { border: 1px solid black; }
+#garden { border: 1px solid black; position: absolute; left: 5%; top: 5%; width: 60%; height:70%; border-width: 5px;}
+#info { position: absolute; font-size: 300%; right: 10%; top: 15%;}
+#title {position: absolute; font-size: 350%; right: 9%; top: 2%;}
+#instructions { position: absolute; font-size: 150%; top: 30%; left: 15%; text-align: center; width: 35%;}
+span {display: inline-block; font: inherit}
